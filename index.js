@@ -100,7 +100,8 @@ const proxyRequest = async (request) => {
     // Finally return proxy response
     return new Response(response.body, {
         status: responseStatus,
-        statusText: response.statusText
+        statusText: response.statusText,
+        headers: response.headers
     });
 }
 
