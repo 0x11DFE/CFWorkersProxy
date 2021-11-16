@@ -64,13 +64,13 @@ const proxyRequest = async (request) => {
         let smollKey = key.toLowerCase();
 
         // Remove optional headers from the request
-        if (smollKey === TOKEN.key.toLowerCase() || // Check for password to prevent unwanted usage
-            smollKey === URL_HEADER.toLowerCase() ||
-            smollKey === IP_HEADER.toLowerCase() ||
-            smollKey.startsWith('cf-') ||
-            smollKey === 'x-forwarded-for' ||
-            smollKey === 'x-real-ip'
-        ) continue;
+        if (smollKey.startsWith('cf-') || [
+            TOKEN.key.toLowerCase(), // Check for password to prevent unwanted usage
+            URL_HEADER.toLowerCase(),
+            IP_HEADER.toLowerCase(),
+            'x-forwarded-for',
+            'x-real-ip',
+        ].some(header => header === smollKey)) continue;
 
         // Set the sent header to our new headers
         newHeaders.set(key, value)
